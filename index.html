@@ -12154,1518 +12154,1194 @@
 
       
 
-           <section>
-            <div>
-              <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+            <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .step-hidden { display: none; }
+        .step-visible { display: block; }
+        .icon-target::before { content: "🎯"; }
+        .icon-heart::before { content: "❤️"; }
+        .icon-dumbbell::before { content: "💪"; }
+        .icon-activity::before { content: "📊"; }
+        .icon-user::before { content: "👤"; }
+        .icon-users::before { content: "👥"; }
+        .icon-calculator::before { content: "🧮"; }
+        .icon-zap::before { content: "⚡"; }
+        .icon-scale::before { content: "⚖️"; }
+        .icon-heart2::before { content: "💚"; }
+        .icon-leaf::before { content: "🌱"; }
+        .icon-leaf2::before { content: "🥬"; }
+        .icon-drumstick::before { content: "🍗"; }
+        .icon-egg::before { content: "🥚"; }
+        .icon-shield::before { content: "🛡️"; }
+        .icon-star::before { content: "⭐"; }
+        .icon-crown::before { content: "👑"; }
+        .icon-zap2::before { content: "⚡"; }
+        .icon-check::before { content: "✓"; }
 
-      body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-        min-height: 100vh;
-        color: white;
-        overflow-x: hidden;
-        position: relative;
-      }
-
-      /* Animated Background */
-      .bg-animation {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        overflow: hidden;
-      }
-
-      .bg-orb {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(100px);
-        opacity: 0.4;
-        animation: float 8s ease-in-out infinite;
-      }
-
-      .bg-orb:nth-child(1) {
-        width: 500px;
-        height: 500px;
-        background: linear-gradient(45deg, #8b5cf6, #a855f7);
-        top: 10%;
-        left: 10%;
-        animation-delay: 0s;
-      }
-
-      .bg-orb:nth-child(2) {
-        width: 400px;
-        height: 400px;
-        background: linear-gradient(45deg, #3b82f6, #6366f1);
-        bottom: 10%;
-        right: 10%;
-        animation-delay: 3s;
-      }
-
-      .bg-orb:nth-child(3) {
-        width: 450px;
-        height: 450px;
-        background: linear-gradient(45deg, #ec4899, #f97316);
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation-delay: 6s;
-      }
-
-      @keyframes float {
-        0%, 100% { 
-          transform: translateY(0px) scale(1) rotate(0deg); 
-          opacity: 0.4;
+        /* Meal Plan Styles */
+        .meal-plan-container {
+            padding: 0;
         }
-        33% { 
-          transform: translateY(-30px) scale(1.1) rotate(120deg); 
-          opacity: 0.6;
+
+        .max-width-container {
+            max-width: 100%;
+            margin: 0;
         }
-        66% { 
-          transform: translateY(15px) scale(0.9) rotate(240deg); 
-          opacity: 0.3;
+
+        .meal-plan-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
         }
-      }
 
-      /* Progress Bar */
-      .progress-container {
-        padding: 2rem;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 2rem;
-      }
-
-      .progress-bar {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .progress-step {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 2px solid #4b5563;
-        color: #9ca3af;
-        font-weight: bold;
-        transition: all 0.4s ease;
-        position: relative;
-        background: rgba(31, 41, 55, 0.8);
-        backdrop-filter: blur(10px);
-      }
-
-      .progress-step.active {
-        background: linear-gradient(45deg, #8b5cf6, #ec4899);
-        border-color: #8b5cf6;
-        color: white;
-        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-        transform: scale(1.1);
-      }
-
-      .progress-step.completed {
-        background: linear-gradient(45deg, #10b981, #059669);
-        border-color: #10b981;
-        color: white;
-        box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-      }
-
-      .progress-line {
-        width: 60px;
-        height: 3px;
-        background: #4b5563;
-        transition: all 0.4s ease;
-        border-radius: 2px;
-      }
-
-      .progress-line.active {
-        background: linear-gradient(45deg, #8b5cf6, #ec4899);
-        box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
-      }
-
-      /* Main Content */
-      .main-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 2rem 2rem;
-      }
-
-      .section {
-        text-align: center;
-        display: none;
-        min-height: 60vh;
-      }
-
-      .section.active {
-        display: block;
-        animation: fadeInUp 0.6s ease-out;
-      }
-
-      @keyframes fadeInUp {
-        from { 
-          opacity: 0; 
-          transform: translateY(30px); 
+        .meal-plan-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1f2937;
         }
-        to { 
-          opacity: 1; 
-          transform: translateY(0); 
-        }
-      }
 
-      .section-title {
-        font-size: 3rem;
-        font-weight: 800;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        background: linear-gradient(45deg, #8b5cf6, #ec4899);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .section-subtitle {
-        color: #d1d5db;
-        font-size: 1.25rem;
-        margin-bottom: 3rem;
-        font-weight: 300;
-      }
-
-      /* Cards */
-      .card-grid {
-        display: grid;
-        gap: 2rem;
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-
-      .card-grid-2 {
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      }
-
-      .card-grid-3 {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      }
-
-      .card-grid-4 {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      }
-
-      .selection-card {
-        background: rgba(31, 41, 55, 0.6);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(139, 92, 246, 0.2);
-        border-radius: 1.5rem;
-        padding: 2.5rem;
-        cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .selection-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        border-radius: 1.5rem;
-      }
-
-      .selection-card:hover::before {
-        opacity: 1;
-      }
-
-      .selection-card:hover {
-        transform: translateY(-8px) scale(1.03);
-        border-color: rgba(139, 92, 246, 0.6);
-        box-shadow: 0 25px 50px rgba(139, 92, 246, 0.3);
-        background: rgba(31, 41, 55, 0.8);
-      }
-
-      .selection-card.recommended {
-        border-color: #8b5cf6;
-        background: rgba(139, 92, 246, 0.15);
-        position: relative;
-      }
-
-      .selection-card.recommended::after {
-        content: 'Recommended';
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        background: linear-gradient(45deg, #8b5cf6, #ec4899);
-        color: white;
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 0.4rem 1rem;
-        border-radius: 2rem;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-      }
-
-      .card-icon {
-        width: 60px;
-        height: 60px;
-        margin: 0 auto 1.5rem;
-        color: #a855f7;
-        transition: all 0.4s ease;
-      }
-
-      .selection-card:hover .card-icon {
-        color: #c084fc;
-        transform: scale(1.1) rotate(5deg);
-      }
-
-      .card-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.75rem;
-        color: white;
-      }
-
-      .card-description {
-        color: #9ca3af;
-        font-size: 1rem;
-        transition: color 0.3s ease;
-        line-height: 1.5;
-      }
-
-      .selection-card:hover .card-description {
-        color: #d1d5db;
-      }
-
-      /* BMI Calculator */
-      .bmi-calculator {
-        max-width: 500px;
-        margin: 0 auto;
-        background: rgba(31, 41, 55, 0.6);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(139, 92, 246, 0.2);
-        border-radius: 1.5rem;
-        padding: 3rem;
-      }
-
-      .form-group {
-        margin-bottom: 2rem;
-        text-align: left;
-      }
-
-      .form-label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 0.75rem;
-        color: white;
-        font-size: 1.1rem;
-      }
-
-      .form-input {
-        width: 100%;
-        padding: 1rem 1.25rem;
-        background: rgba(55, 65, 81, 0.8);
-        border: 2px solid #4b5563;
-        border-radius: 0.75rem;
-        color: white;
-        font-size: 1.1rem;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-      }
-
-      .form-input:focus {
-        outline: none;
-        border-color: #8b5cf6;
-        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-        background: rgba(55, 65, 81, 1);
-      }
-
-      .form-input::placeholder {
-        color: #9ca3af;
-      }
-
-      .bmi-result {
-        margin-top: 2rem;
-        padding: 2rem;
-        background: rgba(139, 92, 246, 0.15);
-        border: 2px solid rgba(139, 92, 246, 0.3);
-        border-radius: 1rem;
-        backdrop-filter: blur(10px);
-      }
-
-      .bmi-value {
-        font-size: 3rem;
-        font-weight: 800;
-        color: #a855f7;
-        margin-bottom: 0.5rem;
-      }
-
-      .bmi-category {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #d1d5db;
-      }
-
-      /* Buttons */
-      .btn {
-        padding: 1rem 2rem;
-        border: none;
-        border-radius: 0.75rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        text-decoration: none;
-        font-size: 1.1rem;
-      }
-
-      .btn-primary {
-        background: linear-gradient(45deg, #8b5cf6, #ec4899);
-        color: white;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-      }
-
-      .btn-primary:hover {
-        background: linear-gradient(45deg, #7c3aed, #db2777);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.6);
-      }
-
-      .btn-primary:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
-      }
-
-      .btn-secondary {
-        background: rgba(75, 85, 99, 0.5);
-        color: #d1d5db;
-        border: 1px solid #4b5563;
-        backdrop-filter: blur(10px);
-      }
-
-      .btn-secondary:hover {
-        color: white;
-        border-color: #8b5cf6;
-        background: rgba(139, 92, 246, 0.2);
-      }
-
-      .btn-full {
-        width: 100%;
-        justify-content: center;
-        padding: 1.25rem;
-        font-size: 1.25rem;
-      }
-
-      /* Navigation */
-      .navigation {
-        margin-top: 3rem;
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-      }
-
-      /* Checkout */
-      .checkout-container {
-        max-width: 700px;
-        margin: 0 auto;
-      }
-
-      .order-summary {
-        background: rgba(31, 41, 55, 0.6);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(139, 92, 246, 0.2);
-        border-radius: 1.5rem;
-        padding: 2rem;
-        margin-bottom: 2rem;
-      }
-
-      .summary-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid #374151;
-      }
-
-      .summary-item:last-child {
-        border-bottom: none;
-        margin-bottom: 0;
-        padding-bottom: 0;
-      }
-
-      .summary-label {
-        color: #d1d5db;
-        font-weight: 500;
-        font-size: 1.1rem;
-      }
-
-      .summary-value {
-        color: white;
-        font-weight: 600;
-        font-size: 1.1rem;
-      }
-
-      /* Success Modal */
-      .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(10px);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-      }
-
-      .modal.active {
-        display: flex;
-        animation: fadeIn 0.4s ease-in-out;
-      }
-
-      .modal-content {
-        background: rgba(31, 41, 55, 0.95);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(139, 92, 246, 0.3);
-        border-radius: 1.5rem;
-        padding: 3rem;
-        max-width: 450px;
-        margin: 1rem;
-        text-align: center;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-      }
-
-      .success-icon {
-        width: 80px;
-        height: 80px;
-        color: #10b981;
-        margin: 0 auto 1.5rem;
-      }
-
-      .processing {
-        color: #a855f7;
-        animation: pulse 2s infinite;
-        font-size: 1.1rem;
-        font-weight: 500;
-      }
-
-      @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-      }
-
-      /* Icons */
-      .icon {
-        width: 24px;
-        height: 24px;
-        stroke: currentColor;
-        stroke-width: 2;
-        fill: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-
-      .icon-lg {
-        width: 60px;
-        height: 60px;
-      }
-
-      .icon-xl {
-        width: 80px;
-        height: 80px;
-      }
-
-      /* Plan Cards */
-      .plan-card {
-        background: rgba(31, 41, 55, 0.6);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(139, 92, 246, 0.2);
-        border-radius: 1.5rem;
-        padding: 2rem;
-        cursor: pointer;
-        transition: all 0.4s ease;
-        position: relative;
-        text-align: left;
-      }
-
-      .plan-card:hover {
-        transform: translateY(-5px);
-        border-color: rgba(139, 92, 246, 0.6);
-        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
-      }
-
-      .plan-card.popular {
-        border-color: #8b5cf6;
-        background: rgba(139, 92, 246, 0.15);
-      }
-
-      .plan-card.popular::before {
-        content: 'Most Popular';
-        position: absolute;
-        top: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(45deg, #8b5cf6, #ec4899);
-        color: white;
-        font-size: 0.75rem;
-        font-weight: 600;
-        padding: 0.4rem 1rem;
-        border-radius: 2rem;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
-      }
-
-      .plan-name {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 1rem;
-      }
-
-      .plan-price {
-        margin-bottom: 1.5rem;
-      }
-
-      .plan-price .price {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #a855f7;
-      }
-
-      .plan-price .period {
-        color: #9ca3af;
-        font-size: 1.1rem;
-      }
-
-      .plan-features {
-        list-style: none;
-        padding: 0;
-      }
-
-      .plan-features li {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 0.75rem;
-        color: #d1d5db;
-        font-size: 1rem;
-      }
-
-      .plan-features .check-icon {
-        width: 20px;
-        height: 20px;
-        color: #10b981;
-        flex-shrink: 0;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
         .section-title {
-          font-size: 2.5rem;
-        }
-        
-        .card-grid {
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-        }
-        
-        .main-content {
-          padding: 0 1rem 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 2rem;
         }
 
-        .progress-bar {
-          gap: 0.5rem;
+        /* Total Amount Summary */
+        .total-summary {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            color: #cfcc19;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
         }
 
-        .progress-step {
-          width: 40px;
-          height: 40px;
+        .total-summary.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
         }
 
-        .progress-line {
-          width: 30px;
+        .summary-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
         }
 
-        .bmi-calculator {
-          padding: 2rem;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .section-title {
-          font-size: 2rem;
-          flex-direction: column;
-          gap: 0.5rem;
+        .summary-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
         }
 
-        .selection-card {
-          padding: 2rem;
+        .summary-details {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
         }
 
-        .card-icon {
-          width: 48px;
-          height: 48px;
+        .amount-update {
+            animation: amountPulse 0.6s ease-out;
         }
-      }
+
+        @keyframes amountPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Meal Type Selection */
+        .meal-types {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .meal-type {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .meal-type:hover {
+            background-color: #e7bc0f;
+        }
+
+        .meal-type:hover .meal-label {
+            color: #111827;
+        }
+
+        .checkbox {
+            width: 28px;
+            height: 28px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .meal-type:hover .checkbox {
+            border-color: #f59e0b;
+            transform: scale(1.05);
+        }
+
+        .checkbox.checked {
+            background-color: #f59e0b;
+            border-color: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        .checkmark {
+            width: 16px;
+            height: 16px;
+            color: white;
+            display: none;
+        }
+
+        .checkbox.checked .checkmark {
+            display: block;
+            animation: checkmarkPop 0.3s ease-out;
+        }
+
+        @keyframes checkmarkPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .meal-label {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #374151;
+            transition: color 0.2s;
+        }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #f3f4f6;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            border-color: #fef3c7;
+            transform: translateY(-2px);
+        }
+
+        .pricing-card.selected {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+        }
+
+        .save-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #f59e0b;
+            color: black;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .plan-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .plan-subtitle {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .plan-duration {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-top: 0.25rem;
+        }
+
+        .pricing-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .price-per-meal {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            transition: all 0.3s;
+        }
+
+        .total-price {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-top: 0.25rem;
+            transition: all 0.3s;
+        }
+
+        .price-update {
+            animation: priceUpdate 0.5s ease-out;
+        }
+
+        @keyframes priceUpdate {
+            0% { transform: scale(1); color: #111827; }
+            50% { transform: scale(1.1); color: #f59e0b; }
+            100% { transform: scale(1); color: #111827; }
+        }
+
+        .card-footer {
+            border-top: 1px solid #cfcc19;
+            padding-top: 1rem;
+        }
+
+        .custom-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .custom-select {
+            position: relative;
+        }
+
+        .custom-dropdown {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background: white;
+            color: #374151;
+            font-weight: 500;
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.2s;
+        }
+
+        .custom-dropdown:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            color: #9ca3af;
+            pointer-events: none;
+            transition: transform 0.2s;
+        }
+
+        .custom-select:hover .dropdown-arrow {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .meal-count {
+            display: flex;
+            align-items: center;
+            color: #6b7280;
+            transition: all 0.3s;
+        }
+
+        .meal-icon {
+            width: 16px;
+            height: 12px;
+            background-color: #9ca3af;
+            border-radius: 2px;
+            margin-right: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .meal-types {
+                gap: 1rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-amount {
+                font-size: 2rem;
+            }
+
+            .summary-details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .meal-types {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <div class="bg-animation">
-      <div class="bg-orb"></div>
-      <div class="bg-orb"></div>
-      <div class="bg-orb"></div>
-    </div>
+</head>
+<body>
 
-    <!-- Progress Bar -->
-    <div class="progress-container">
-      <div class="progress-bar">
-        <div class="progress-step active" id="step-1">1</div>
-        <div class="progress-line" id="line-1"></div>
-        <div class="progress-step" id="step-2">2</div>
-        <div class="progress-line" id="line-2"></div>
-        <div class="progress-step" id="step-3">3</div>
-        <div class="progress-line" id="line-3"></div>
-        <div class="progress-step" id="step-4">4</div>
-        <div class="progress-line" id="line-4"></div>
-        <div class="progress-step" id="step-5">5</div>
-        <div class="progress-line" id="line-5"></div>
-        <div class="progress-step" id="step-6">6</div>
-      </div>
-    </div>
+<!-- Diet Planner Section - Copy from here -->
+<section id="diet-planner" class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16">
+    <div class="container mx-auto px-4">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                NutriPlan Pro
+            </h1>
+            <p class="text-xl text-gray-600">Your personalized nutrition journey starts here</p>
+        </div>
 
-    <div class="main-content">
-      <!-- Step 1: Goal Selection -->
-      <section id="section-1" class="section active">
-        <h1 class="section-title">
-          <svg class="icon icon-lg" viewBox="0 0 24 24">
-            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-          </svg>
-          Your Goal
-        </h1>
-        <p class="section-subtitle">Please select one to get started</p>
-        
-        <div class="card-grid card-grid-2">
-          <div class="selection-card" onclick="selectGoal('lose-weight')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"/>
-              <circle cx="12" cy="12" r="6"/>
-              <circle cx="12" cy="12" r="2"/>
-            </svg>
-            <h3 class="card-title">Lose Weight</h3>
-            <p class="card-description">Achieve your ideal weight with personalized nutrition plans</p>
-          </div>
-          
-          <div class="selection-card" onclick="selectGoal('healthy-eating')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </svg>
-            <h3 class="card-title">Healthy Eating</h3>
-            <p class="card-description">Improve overall wellness with balanced nutrition</p>
-          </div>
-          
-          <div class="selection-card" onclick="selectGoal('gain-muscle')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <path d="M6.5 12a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z"/>
-              <path d="M17.5 12a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z"/>
-              <path d="M6.5 12V7a6.5 6.5 0 0 1 13 0v5"/>
-            </svg>
-            <h3 class="card-title">Gain Muscle</h3>
-            <p class="card-description">Build lean muscle mass with targeted nutrition</p>
-          </div>
-          
-          <div class="selection-card" onclick="selectGoal('diabetes-management')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-            </svg>
-            <h3 class="card-title">Diabetes Management</h3>
-            <p class="card-description">Control blood sugar levels with specialized meal plans</p>
-          </div>
+        <!-- Step Indicator -->
+        <div id="step-indicator" class="w-full max-w-4xl mx-auto mb-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center">
+                        <div id="step-1-indicator" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-blue-500 text-white">1</div>
+                        <span class="mt-2 text-xs font-medium text-gray-900">Goal Selection</span>
+                    </div>
+                    <div class="flex-1 h-0.5 mx-4 bg-gray-200" id="line-1"></div>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center">
+                        <div id="step-2-indicator" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-gray-200 text-gray-500">2</div>
+                        <span class="mt-2 text-xs font-medium text-gray-400">Personal Details</span>
+                    </div>
+                    <div class="flex-1 h-0.5 mx-4 bg-gray-200" id="line-2"></div>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center">
+                        <div id="step-3-indicator" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-gray-200 text-gray-500">3</div>
+                        <span class="mt-2 text-xs font-medium text-gray-400">BMI Calculation</span>
+                    </div>
+                    <div class="flex-1 h-0.5 mx-4 bg-gray-200" id="line-3"></div>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center">
+                        <div id="step-4-indicator" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-gray-200 text-gray-500">4</div>
+                        <span class="mt-2 text-xs font-medium text-gray-400">Diet Preferences</span>
+                    </div>
+                    <div class="flex-1 h-0.5 mx-4 bg-gray-200" id="line-4"></div>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center">
+                        <div id="step-5-indicator" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-gray-200 text-gray-500">5</div>
+                        <span class="mt-2 text-xs font-medium text-gray-400">Meal Selection</span>
+                    </div>
+                    <div class="flex-1 h-0.5 mx-4 bg-gray-200" id="line-5"></div>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center">
+                        <div id="step-6-indicator" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-gray-200 text-gray-500">6</div>
+                        <span class="mt-2 text-xs font-medium text-gray-400">Diet Plans</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
 
-      <!-- Step 2: Gender Selection -->
-      <section id="section-2" class="section">
-        <h1 class="section-title">
-          <svg class="icon icon-lg" viewBox="0 0 24 24">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-          Please select your gender
-        </h1>
-        
-        <div class="card-grid card-grid-2" style="max-width: 600px;">
-          <div class="selection-card" onclick="selectGender('male')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <circle cx="12" cy="4" r="2"/>
-              <path d="M10.5 14H8a2 2 0 0 0-2 2v4l2 2h8l2-2v-4a2 2 0 0 0-2-2h-2.5"/>
-              <path d="M8 14v-2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-            </svg>
-            <h3 class="card-title">Male</h3>
-            <p class="card-description">Tailored nutrition for male physiology</p>
-          </div>
-          
-          <div class="selection-card" onclick="selectGender('female')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <circle cx="12" cy="4" r="2"/>
-              <path d="M10.5 14H8a2 2 0 0 0-2 2v4l2 2h8l2-2v-4a2 2 0 0 0-2-2h-2.5"/>
-              <path d="M8 14v-2a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-            </svg>
-            <h3 class="card-title">Female</h3>
-            <p class="card-description">Customized nutrition for female health needs</p>
-          </div>
-        </div>
-        
-        <div class="navigation">
-          <button class="btn btn-secondary" onclick="goToStep(1)">
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="m12 19-7-7 7-7"/>
-              <path d="M19 12H5"/>
-            </svg>
-            Back
-          </button>
-        </div>
-      </section>
-
-      <!-- Step 3: BMI Calculator -->
-      <section id="section-3" class="section">
-        <h1 class="section-title">
-          <svg class="icon icon-lg" viewBox="0 0 24 24">
-            <rect width="16" height="10" x="2" y="3" rx="2" ry="2"/>
-            <path d="m7 11 2-2-2-2"/>
-            <path d="M11 13h4"/>
-          </svg>
-          BMI Calculator
-        </h1>
-        <p class="section-subtitle">Let's calculate your Body Mass Index</p>
-        
-        <div class="bmi-calculator">
-          <div class="form-group">
-            <label class="form-label">Height (cm)</label>
-            <input type="number" class="form-input" id="height" placeholder="Enter your height in centimeters" min="100" max="250" oninput="calculateBMI()">
-          </div>
-          
-          <div class="form-group">
-            <label class="form-label">Weight (kg)</label>
-            <input type="number" class="form-input" id="weight" placeholder="Enter your weight in kilograms" min="30" max="300" step="0.1" oninput="calculateBMI()">
-          </div>
-          
-          <div class="form-group">
-            <label class="form-label">Age</label>
-            <input type="number" class="form-input" id="age" placeholder="Enter your age" min="16" max="100" oninput="validateBMIForm()">
-          </div>
-          
-          <div id="bmi-result" class="bmi-result" style="display: none;">
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: white;">Your BMI Results</h3>
-            <div class="bmi-value" id="bmi-value">0</div>
-            <div class="bmi-category" id="bmi-category">Normal weight</div>
-            <div style="margin-top: 1rem; font-size: 0.9rem; color: #9ca3af;" id="bmi-description"></div>
-          </div>
-          
-          <button class="btn btn-primary btn-full" id="bmi-continue" onclick="continueToDiet()" disabled>
-            Calculate & Continue
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="M5 12h14"/>
-              <path d="m12 5 7 7-7 7"/>
-            </svg>
-          </button>
-        </div>
-        
-        <div class="navigation">
-          <button class="btn btn-secondary" onclick="goToStep(2)">
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="m12 19-7-7 7-7"/>
-              <path d="M19 12H5"/>
-            </svg>
-            Back
-          </button>
-        </div>
-      </section>
-
-      <!-- Step 4: Diet Type Selection -->
-      <section id="section-4" class="section">
-        <h1 class="section-title">
-          <svg class="icon icon-lg" viewBox="0 0 24 24">
-            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-            <path d="M7 2v20"/>
-            <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
-          </svg>
-          Choose your Diet Type
-        </h1>
-        <p class="section-subtitle">Select the nutrition approach that fits your lifestyle</p>
-        
-        <div class="card-grid card-grid-3">
-          <div class="selection-card recommended" onclick="selectDiet('let-pathya-decide')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
-              <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
-            </svg>
-            <h3 class="card-title">Let Pathya Decide</h3>
-            <p class="card-description">AI-powered recommendation based on your goals and profile</p>
-          </div>
-          
-          <div class="selection-card" onclick="selectDiet('ketogenic')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-              <path d="M7 2v20"/>
-              <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
-            </svg>
-            <h3 class="card-title">Ketogenic</h3>
-            <p class="card-description">High fat, very low carb diet for rapid fat loss</p>
-          </div>
-          
-          <div class="selection-card" onclick="selectDiet('low-carb')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-              <path d="M7 2v20"/>
-              <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
-            </svg>
-            <h3 class="card-title">Low Carb</h3>
-            <p class="card-description">Reduced carbohydrate intake for steady weight loss</p>
-          </div>
-          
-          <div class="selection-card" onclick="selectDiet('balanced')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-              <path d="M7 2v20"/>
-              <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
-            </svg>
-            <h3 class="card-title">Balanced</h3>
-            <p class="card-description">Well-rounded nutrition with all food groups</p>
-          </div>
-          
-          <div class="selection-card" onclick="selectDiet('vegan')">
-            <svg class="card-icon icon-lg" viewBox="0 0 24 24">
-              <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-              <path d="M7 2v20"/>
-              <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
-            </svg>
-            <h3 class="card-title">Vegan</h3>
-            <p class="card-description">Plant-based nutrition for health and sustainability</p>
-          </div>
-        </div>
-        
-        <div class="navigation">
-          <button class="btn btn-secondary" onclick="goToStep(3)">
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="m12 19-7-7 7-7"/>
-              <path d="M19 12H5"/>
-            </svg>
-            Back
-          </button>
-        </div>
-      </section>
-
-      <!-- Step 5: Plans and Pricing -->
-      <section id="section-5" class="section">
-        <h1 class="section-title">
-          <svg class="icon icon-lg" viewBox="0 0 24 24">
-            <rect width="20" height="14" x="2" y="5" rx="2"/>
-            <line x1="2" x2="22" y1="10" y2="10"/>
-          </svg>
-          Choose Your Plan
-        </h1>
-        <p class="section-subtitle">Select the perfect plan for your health journey</p>
-        
-        <div class="card-grid card-grid-4">
-          <div class="plan-card" onclick="selectPlan('basic', '$29')">
-            <h3 class="plan-name">Basic</h3>
-            <div class="plan-price">
-              <span class="price">$29</span>
-              <span class="period">/month</span>
-            </div>
-            <ul class="plan-features">
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Personalized meal plans
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Basic nutritional guidance
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Mobile app access
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Email support
-              </li>
-            </ul>
-          </div>
-          
-          <div class="plan-card popular" onclick="selectPlan('premium', '$49')">
-            <h3 class="plan-name">Premium</h3>
-            <div class="plan-price">
-              <span class="price">$49</span>
-              <span class="period">/month</span>
-            </div>
-            <ul class="plan-features">
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Everything in Basic
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                1-on-1 nutrition coaching
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Advanced progress analytics
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Priority customer support
-              </li>
-            </ul>
-          </div>
-          
-          <div class="plan-card" onclick="selectPlan('pro', '$79')">
-            <h3 class="plan-name">Pro</h3>
-            <div class="plan-price">
-              <span class="price">$79</span>
-              <span class="period">/month</span>
-            </div>
-            <ul class="plan-features">
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Everything in Premium
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Weekly video consultations
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Custom supplement recommendations
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Meal delivery integration
-              </li>
-            </ul>
-          </div>
-          
-          <div class="plan-card" onclick="selectPlan('elite', '$129')">
-            <h3 class="plan-name">Elite</h3>
-            <div class="plan-price">
-              <span class="price">$129</span>
-              <span class="period">/month</span>
-            </div>
-            <ul class="plan-features">
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Everything in Pro
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Daily check-ins with nutritionist
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Exclusive recipe database
-              </li>
-              <li>
-                <svg class="check-icon" viewBox="0 0 24 24">
-                  <path d="M9 12l2 2 4-4"/>
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                24/7 priority support
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="navigation">
-          <button class="btn btn-secondary" onclick="goToStep(4)">
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="m12 19-7-7 7-7"/>
-              <path d="M19 12H5"/>
-            </svg>
-            Back
-          </button>
-        </div>
-      </section>
-
-      <!-- Step 6: Checkout -->
-      <section id="section-6" class="section">
-        <h1 class="section-title">
-          <svg class="icon icon-lg" viewBox="0 0 24 24">
-            <path d="M9 12l2 2 4-4"/>
-            <circle cx="12" cy="12" r="10"/>
-          </svg>
-          Checkout
-        </h1>
-        <p class="section-subtitle">Review your selections and complete your order</p>
-        
-        <div class="checkout-container">
-          <div class="order-summary">
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Order Summary</h3>
-            <div class="summary-item">
-              <span class="summary-label">Goal:</span>
-              <span class="summary-value" id="summary-goal">-</span>
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Gender:</span>
-              <span class="summary-value" id="summary-gender">-</span>
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">BMI:</span>
-              <span class="summary-value" id="summary-bmi">-</span>
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Diet Type:</span>
-              <span class="summary-value" id="summary-diet">-</span>
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Plan:</span>
-              <span class="summary-value" id="summary-plan">-</span>
-            </div>
-            <div class="summary-item">
-              <span class="summary-label">Monthly Cost:</span>
-              <span class="summary-value" id="summary-price" style="color: #a855f7; font-size: 1.25rem;">-</span>
-            </div>
-          </div>
-          
-          <div class="order-summary">
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; color: white;">Your Details</h3>
-            <div class="form-group">
-              <input type="text" class="form-input" id="username" placeholder="Username" oninput="validateForm()">
-            </div>
-            <div class="form-group">
-              <input type="email" class="form-input" id="email" placeholder="Email Address" oninput="validateForm()">
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-input" id="password" placeholder="Create Password" oninput="validateForm()">
-            </div>
+        <!-- Form Container -->
+        <div class="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-8 mx-auto max-w-6xl">
             
-            <button class="btn btn-primary btn-full" id="complete-order" onclick="completeOrder()" disabled>
-              Complete Order
-              <svg class="icon" viewBox="0 0 24 24">
-                <path d="M5 12h14"/>
-                <path d="m12 5 7 7-7 7"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-        
-        <div class="navigation">
-          <button class="btn btn-secondary" onclick="goToStep(5)">
-            <svg class="icon" viewBox="0 0 24 24">
-              <path d="m12 19-7-7 7-7"/>
-              <path d="M19 12H5"/>
-            </svg>
-            Back
-          </button>
-        </div>
-      </section>
-    </div>
+            <!-- Step 1: Goal Selection -->
+            <div id="step-1" class="step-visible">
+                <div class="w-full max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">What's Your Goal?</h2>
+                        <p class="text-lg text-gray-600">Please select one to get started</p>
+                    </div>
 
-    <!-- Success Modal -->
-    <div class="modal" id="success-modal">
-      <div class="modal-content">
-        <svg class="success-icon icon-xl" viewBox="0 0 24 24">
-          <path d="M9 12l2 2 4-4"/>
-          <circle cx="12" cy="12" r="10"/>
-        </svg>
-        <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 1rem; color: white;">Order Successful!</h2>
-        <p style="color: #d1d5db; margin-bottom: 1.5rem; font-size: 1.1rem; line-height: 1.6;">
-          Your personalized nutrition journey is about to begin! We have sent you an email with address details and delivery information.
-        </p>
-        <div class="processing">Processing your order...</div>
-      </div>
-    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <button onclick="selectGoal('lose-weight')" class="goal-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">🎯</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Lose Weight</h3>
+                            <p class="text-gray-600">Achieve sustainable weight loss</p>
+                        </button>
 
-    <script>
-      // User data storage
-      let userData = {
+                        <button onclick="selectGoal('healthy-eating')" class="goal-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">❤️</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Healthy Eating</h3>
+                            <p class="text-gray-600">Maintain balanced nutrition</p>
+                        </button>
+
+                        <button onclick="selectGoal('gain-muscle')" class="goal-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">💪</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Gain Muscle</h3>
+                            <p class="text-gray-600">Build lean muscle mass</p>
+                        </button>
+
+                        <button onclick="selectGoal('diabetes-management')" class="goal-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">📊</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Diabetes Management</h3>
+                            <p class="text-gray-600">Control blood sugar levels</p>
+                        </button>
+                    </div>
+
+                    <div class="flex justify-center">
+                        <button id="goal-continue-btn" onclick="nextStep()" disabled class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Gender Selection -->
+            <div id="step-2" class="step-hidden">
+                <div class="w-full max-w-2xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Select Your Gender</h2>
+                        <p class="text-lg text-gray-600">Please select your gender</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <button onclick="selectGender('male')" class="gender-option p-8 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl">👤</span>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-gray-900">Male</h3>
+                        </button>
+
+                        <button onclick="selectGender('female')" class="gender-option p-8 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-r from-pink-400 to-pink-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-3xl">👥</span>
+                            </div>
+                            <h3 class="text-2xl font-semibold text-gray-900">Female</h3>
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button onclick="prevStep()" class="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300">
+                            Back
+                        </button>
+                        <button id="gender-continue-btn" onclick="nextStep()" disabled class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: BMI Calculator -->
+            <div id="step-3" class="step-hidden">
+                <div class="w-full max-w-2xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">BMI Calculator</h2>
+                        <p class="text-lg text-gray-600">Enter your details to calculate your BMI</p>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    📏 Height (cm)
+                                </label>
+                                <input type="number" id="height" oninput="calculateBMI()" placeholder="170" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    ⚖️ Weight (kg)
+                                </label>
+                                <input type="number" id="weight" oninput="calculateBMI()" placeholder="70" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    📅 Age (years)
+                                </label>
+                                <input type="number" id="age" oninput="validateBMIForm()" placeholder="25" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                            </div>
+                        </div>
+
+                        <div id="bmi-result" class="bg-gray-50 rounded-lg p-6 text-center hidden">
+                            <div class="flex items-center justify-center mb-4">
+                                <span class="text-2xl mr-2">🧮</span>
+                                <h3 class="text-xl font-semibold text-gray-900">Your BMI Score</h3>
+                            </div>
+                            <div id="bmi-value" class="text-4xl font-bold text-blue-600 mb-2"></div>
+                            <div id="bmi-category" class="inline-flex px-4 py-2 rounded-full font-medium"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button onclick="prevStep()" class="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300">
+                            Back
+                        </button>
+                        <button id="bmi-continue-btn" onclick="nextStep()" disabled class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Diet Type Selection -->
+            <div id="step-4" class="step-hidden">
+                <div class="w-full max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Choose Your Diet Type</h2>
+                        <p class="text-lg text-gray-600">Select the diet approach that works best for you</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <button onclick="selectDietType('ketogenic')" class="diet-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-purple-400 to-purple-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">⚡</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Ketogenic</h3>
+                            <p class="text-gray-600">High fat, low carb diet for rapid weight loss</p>
+                        </button>
+
+                        <button onclick="selectDietType('low-carb')" class="diet-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-orange-400 to-orange-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">⚖️</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Low Carb</h3>
+                            <p class="text-gray-600">Reduced carbohydrate intake for weight management</p>
+                        </button>
+
+                        <button onclick="selectDietType('balanced')" class="diet-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">💚</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Balanced</h3>
+                            <p class="text-gray-600">Well-rounded nutrition for overall health</p>
+                        </button>
+
+                        <button onclick="selectDietType('vegan')" class="diet-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">🌱</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Vegan</h3>
+                            <p class="text-gray-600">Plant-based diet for health and sustainability</p>
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button onclick="prevStep()" class="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300">
+                            Back
+                        </button>
+                        <button id="diet-type-continue-btn" onclick="nextStep()" disabled class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Meal Selection -->
+            <div id="step-5" class="step-hidden">
+                <div class="w-full max-w-3xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Choose Your Meal</h2>
+                        <p class="text-lg text-gray-600">Please select one</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <button onclick="selectMealType('veg')" class="meal-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">🥬</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Veg</h3>
+                            <p class="text-gray-600 text-sm">Vegetarian meals with dairy products</p>
+                        </button>
+
+                        <button onclick="selectMealType('non-veg')" class="meal-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-red-400 to-red-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">🍗</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Non Veg</h3>
+                            <p class="text-gray-600 text-sm">Includes meat, poultry, and seafood</p>
+                        </button>
+
+                        <button onclick="selectMealType('egg')" class="meal-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-r from-yellow-400 to-yellow-600 flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl">🥚</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Egg</h3>
+                            <p class="text-gray-600 text-sm">Vegetarian meals with eggs included</p>
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <button onclick="prevStep()" class="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300">
+                            Back
+                        </button>
+                        <button id="meal-type-continue-btn" onclick="nextStep()" disabled class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6: Meal Plan Preferences -->
+            <div id="step-6" class="step-hidden">
+                <div class="meal-plan-container">
+                    <div class="max-width-container">
+                        <!-- Section Title -->
+                        <h2 class="section-title">Choose Your Plan</h2>
+
+                        <!-- Total Amount Summary -->
+                        <div class="total-summary" id="totalSummary">
+                            <div class="summary-title">Selected Plan Total</div>
+                            <div class="summary-amount" id="summaryAmount">₹ 6,664</div>
+                            <div class="summary-details" id="summaryDetails">
+                                <span>Most Common Plan</span>
+                                <span>•</span>
+                                <span>14 days</span>
+                                <span>•</span>
+                                <span>56 meals</span>
+                                <span>•</span>
+                                <span>4 meal types</span>
+                            </div>
+                        </div>
+
+                        <!-- Meal Type Selection -->
+                        <div class="meal-types">
+                            <div class="meal-type" onclick="toggleMealType('breakfast')">
+                                <div class="checkbox checked" id="breakfast-checkbox">
+                                    <svg class="checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <span class="meal-label">Breakfast</span>
+                            </div>
+                            <div class="meal-type" onclick="toggleMealType('lunch')">
+                                <div class="checkbox checked" id="lunch-checkbox">
+                                    <svg class="checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <span class="meal-label">Lunch</span>
+                            </div>
+                            <div class="meal-type" onclick="toggleMealType('snack')">
+                                <div class="checkbox checked" id="snack-checkbox">
+                                    <svg class="checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <span class="meal-label">Snack</span>
+                            </div>
+                            <div class="meal-type" onclick="toggleMealType('dinner')">
+                                <div class="checkbox checked" id="dinner-checkbox">
+                                    <svg class="checkmark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <span class="meal-label">Dinner</span>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Cards -->
+                        <div class="pricing-grid">
+                            <!-- Trial Plan -->
+                            <div class="pricing-card" id="trial-card" onclick="selectPlan('trial')">
+                                <div class="plan-header">
+                                    <h3 class="plan-title">Trial</h3>
+                                    <p class="plan-duration">3 days</p>
+                                </div>
+                                <div class="pricing-section">
+                                    <p class="price-per-meal" id="trial-price-per-meal">₹125/meal</p>
+                                    <p class="total-price" id="trial-total-price">₹1,500</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="meal-count">
+                                        <div class="meal-icon"></div>
+                                        <span id="trial-meal-count">12 meals</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Most Common Plan -->
+                            <div class="pricing-card selected" id="common-card" onclick="selectPlan('common')">
+                                <div class="save-badge">Save 5%</div>
+                                <div class="plan-header">
+                                    <h3 class="plan-title">Most</h3>
+                                    <p class="plan-subtitle">Common</p>
+                                    <p class="plan-duration">14 days</p>
+                                </div>
+                                <div class="pricing-section">
+                                    <p class="price-per-meal" id="common-price-per-meal">₹119/meal</p>
+                                    <p class="total-price" id="common-total-price">₹6,664</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="meal-count">
+                                        <div class="meal-icon"></div>
+                                        <span id="common-meal-count">56 meals</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Best Deal Plan -->
+                            <div class="pricing-card" id="bestdeal-card" onclick="selectPlan('bestdeal')">
+                                <div class="save-badge">Save 12%</div>
+                                <div class="plan-header">
+                                    <h3 class="plan-title">Best Deal</h3>
+                                    <p class="plan-duration">30 days</p>
+                                </div>
+                                <div class="pricing-section">
+                                    <p class="price-per-meal" id="bestdeal-price-per-meal">₹110/meal</p>
+                                    <p class="total-price" id="bestdeal-total-price">₹13,200</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="meal-count">
+                                        <div class="meal-icon"></div>
+                                        <span id="bestdeal-meal-count">120 meals</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Custom Plan -->
+                            <div class="pricing-card" id="custom-card" onclick="selectPlan('custom')">
+                                <div class="plan-header">
+                                    <h3 class="plan-title">Custom</h3>
+                                    <p class="plan-duration">Select</p>
+                                </div>
+                                <div class="pricing-section">
+                                    <p class="price-per-meal" id="custom-price-per-meal">₹122/meal</p>
+                                    <p class="total-price" id="custom-total-price">₹2,440</p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="custom-options">
+                                        <div class="custom-select">
+                                            <select class="custom-dropdown" id="customDays" onchange="updateCustomPlan()">
+                                                <option value="5">5 days</option>
+                                                <option value="7">7 days</option>
+                                                <option value="10">10 days</option>
+                                                <option value="15">15 days</option>
+                                                <option value="21">21 days</option>
+                                                <option value="45">45 days</option>
+                                                <option value="60">60 days</option>
+                                            </select>
+                                            <svg class="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="meal-count">
+                                            <div class="meal-icon"></div>
+                                            <span id="custom-meal-count">20 meals</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center mt-8">
+                            <button onclick="prevStep()" class="px-8 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300">
+                                Back to Meal Selection
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-8 text-gray-500">
+            <p>Secure • Personalized • Science-backed</p>
+        </div>
+    </div>
+</section>
+<!-- End Diet Planner Section -->
+
+<script>
+    let currentStep = 1;
+    let formData = {
         goal: '',
         gender: '',
-        height: 0,
-        weight: 0,
-        age: 0,
+        height: '',
+        weight: '',
+        age: '',
         bmi: 0,
-        bmiCategory: '',
         dietType: '',
-        plan: '',
-        planPrice: '',
-        username: '',
-        email: '',
-        password: ''
-      };
+        mealType: ''
+    };
 
-      let currentStep = 1;
+    // Meal plan preferences
+    let selectedMeals = {
+        breakfast: true,
+        lunch: true,
+        snack: true,
+        dinner: true
+    };
 
-      // Goal selection
-      function selectGoal(goal) {
-        userData.goal = goal;
-        goToStep(2);
-      }
+    let currentPlan = 'common';
 
-      // Gender selection
-      function selectGender(gender) {
-        userData.gender = gender;
-        goToStep(3);
-      }
+    const basePrices = {
+        trial: { base: 125, days: 3 },
+        common: { base: 119, days: 14 },
+        bestdeal: { base: 110, days: 30 },
+        custom: { base: 122, days: 5 }
+    };
 
-      // BMI calculation with proper validation
-      function calculateBMI() {
-        const heightInput = document.getElementById('height');
-        const weightInput = document.getElementById('weight');
-        const ageInput = document.getElementById('age');
-        
-        const height = parseFloat(heightInput.value);
-        const weight = parseFloat(weightInput.value);
-        const age = parseFloat(ageInput.value);
-        
-        // Validate inputs
-        if (height < 100 || height > 250) {
-          heightInput.setCustomValidity('Height must be between 100-250 cm');
-          return;
-        } else {
-          heightInput.setCustomValidity('');
-        }
-        
-        if (weight < 30 || weight > 300) {
-          weightInput.setCustomValidity('Weight must be between 30-300 kg');
-          return;
-        } else {
-          weightInput.setCustomValidity('');
-        }
-        
-        if (age < 16 || age > 100) {
-          ageInput.setCustomValidity('Age must be between 16-100 years');
-          return;
-        } else {
-          ageInput.setCustomValidity('');
-        }
-        
-        userData.height = height;
-        userData.weight = weight;
-        userData.age = age;
-        
-        if (height > 0 && weight > 0) {
-          // Correct BMI calculation: weight (kg) / height (m)²
-          const heightInMeters = height / 100;
-          const bmi = weight / (heightInMeters * heightInMeters);
-          userData.bmi = Math.round(bmi * 10) / 10;
-          
-          // Determine BMI category with proper ranges
-          let category = '';
-          let description = '';
-          
-          if (userData.bmi < 18.5) {
-            category = 'Underweight';
-            description = 'You may need to gain weight for optimal health.';
-          } else if (userData.bmi >= 18.5 && userData.bmi < 25) {
-            category = 'Normal weight';
-            description = 'You have a healthy weight for your height.';
-          } else if (userData.bmi >= 25 && userData.bmi < 30) {
-            category = 'Overweight';
-            description = 'You may benefit from weight management.';
-          } else if (userData.bmi >= 30 && userData.bmi < 35) {
-            category = 'Obese Class I';
-            description = 'Consider consulting with a healthcare provider.';
-          } else if (userData.bmi >= 35 && userData.bmi < 40) {
-            category = 'Obese Class II';
-            description = 'Medical supervision recommended for weight management.';
-          } else {
-            category = 'Obese Class III';
-            description = 'Immediate medical consultation strongly recommended.';
-          }
-          
-          userData.bmiCategory = category;
-          
-          // Show BMI result
-          document.getElementById('bmi-result').style.display = 'block';
-          document.getElementById('bmi-value').textContent = userData.bmi;
-          document.getElementById('bmi-category').textContent = category;
-          document.getElementById('bmi-description').textContent = description;
-          
-          // Enable continue button
-          validateBMIForm();
-        } else {
-          document.getElementById('bmi-result').style.display = 'none';
-          document.getElementById('bmi-continue').disabled = true;
-        }
-      }
+    const planNames = {
+        trial: 'Trial Plan',
+        common: 'Most Common Plan',
+        bestdeal: 'Best Deal Plan',
+        custom: 'Custom Plan'
+    };
 
-      function validateBMIForm() {
-        const height = parseFloat(document.getElementById('height').value);
-        const weight = parseFloat(document.getElementById('weight').value);
-        const age = parseFloat(document.getElementById('age').value);
-        
-        const isValid = height >= 100 && height <= 250 && 
-                       weight >= 30 && weight <= 300 && 
-                       age >= 16 && age <= 100;
-        
-        document.getElementById('bmi-continue').disabled = !isValid;
-      }
-
-      function continueToDiet() {
-        if (userData.height > 0 && userData.weight > 0 && userData.age > 0 && userData.bmi > 0) {
-          goToStep(4);
-        }
-      }
-
-      // Diet selection with improved AI recommendation
-      function selectDiet(diet) {
-        if (diet === 'let-pathya-decide') {
-          // Enhanced AI recommendation logic
-          const { goal, bmi, gender, age } = userData;
-          
-          if (goal === 'lose-weight') {
-            if (bmi >= 30) {
-              userData.dietType = 'ketogenic'; // Aggressive approach for obesity
-            } else if (bmi >= 25) {
-              userData.dietType = 'low-carb'; // Moderate approach for overweight
-            } else {
-              userData.dietType = 'balanced'; // Maintenance with slight deficit
-            }
-          } else if (goal === 'gain-muscle') {
-            if (bmi < 20) {
-              userData.dietType = 'balanced'; // Need more calories and protein
-            } else {
-              userData.dietType = 'balanced'; // Lean muscle gain
-            }
-          } else if (goal === 'diabetes-management') {
-            userData.dietType = 'low-carb'; // Best for blood sugar control
-          } else if (goal === 'healthy-eating') {
-            if (age > 50) {
-              userData.dietType = 'balanced'; // Focus on nutrient density
-            } else {
-              userData.dietType = 'balanced'; // General health maintenance
-            }
-          } else {
-            userData.dietType = 'balanced'; // Default fallback
-          }
-        } else {
-          userData.dietType = diet;
-        }
-        goToStep(5);
-      }
-
-      // Plan selection with price tracking
-      function selectPlan(plan, price) {
-        userData.plan = plan;
-        userData.planPrice = price;
-        goToStep(6);
-        updateOrderSummary();
-      }
-
-      // Enhanced form validation
-      function validateForm() {
-        const username = document.getElementById('username').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        
-        userData.username = username;
-        userData.email = email;
-        userData.password = password;
-        
-        // Enhanced validation
-        const isUsernameValid = username.length >= 3;
-        const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        const isPasswordValid = password.length >= 6;
-        
-        const isValid = isUsernameValid && isEmailValid && isPasswordValid;
-        
-        document.getElementById('complete-order').disabled = !isValid;
-        
-        // Visual feedback
-        const usernameInput = document.getElementById('username');
-        const emailInput = document.getElementById('email');
-        const passwordInput = document.getElementById('password');
-        
-        usernameInput.style.borderColor = username.length === 0 ? '#4b5563' : (isUsernameValid ? '#10b981' : '#ef4444');
-        emailInput.style.borderColor = email.length === 0 ? '#4b5563' : (isEmailValid ? '#10b981' : '#ef4444');
-        passwordInput.style.borderColor = password.length === 0 ? '#4b5563' : (isPasswordValid ? '#10b981' : '#ef4444');
-      }
-
-      // Complete order with better UX
-      function completeOrder() {
-        const { username, email, password } = userData;
-        if (username.trim().length >= 3 && 
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && 
-            password.length >= 6) {
-          
-          document.getElementById('success-modal').classList.add('active');
-          
-          // Simulate processing time
-          setTimeout(() => {
-            document.getElementById('success-modal').classList.remove('active');
-            resetFlow();
-          }, 4000);
-        }
-      }
-
-      // Update order summary with all details
-      function updateOrderSummary() {
-        document.getElementById('summary-goal').textContent = formatText(userData.goal);
-        document.getElementById('summary-gender').textContent = formatText(userData.gender);
-        document.getElementById('summary-bmi').textContent = `${userData.bmi} (${userData.bmiCategory})`;
-        document.getElementById('summary-diet').textContent = formatText(userData.dietType);
-        document.getElementById('summary-plan').textContent = formatText(userData.plan);
-        document.getElementById('summary-price').textContent = userData.planPrice;
-      }
-
-      // Helper function to format text
-      function formatText(text) {
-        return text.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-      }
-
-      // Enhanced navigation with validation
-      function goToStep(step) {
-        // Validate current step before proceeding
-        if (step > currentStep) {
-          if (currentStep === 1 && !userData.goal) return;
-          if (currentStep === 2 && !userData.gender) return;
-          if (currentStep === 3 && (!userData.bmi || userData.bmi === 0)) return;
-          if (currentStep === 4 && !userData.dietType) return;
-          if (currentStep === 5 && !userData.plan) return;
-        }
-        
-        // Hide current section
-        document.getElementById(`section-${currentStep}`).classList.remove('active');
-        
-        // Update progress bar
-        updateProgressBar(step);
-        
-        // Show new section
-        currentStep = step;
-        document.getElementById(`section-${currentStep}`).classList.add('active');
-        
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      function updateProgressBar(step) {
+    function updateStepIndicator() {
         for (let i = 1; i <= 6; i++) {
-          const stepElement = document.getElementById(`step-${i}`);
-          const lineElement = document.getElementById(`line-${i}`);
-          
-          if (i < step) {
-            stepElement.classList.add('completed');
-            stepElement.classList.remove('active');
-            stepElement.innerHTML = '✓';
-            if (lineElement) lineElement.classList.add('active');
-          } else if (i === step) {
-            stepElement.classList.add('active');
-            stepElement.classList.remove('completed');
-            stepElement.textContent = i;
-          } else {
-            stepElement.classList.remove('active', 'completed');
-            stepElement.textContent = i;
-            if (lineElement) lineElement.classList.remove('active');
-          }
+            const indicator = document.getElementById(`step-${i}-indicator`);
+            const stepText = indicator.nextElementSibling;
+            
+            if (i < currentStep) {
+                indicator.className = 'w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-green-500 text-white';
+                indicator.innerHTML = '✓';
+                stepText.className = 'mt-2 text-xs font-medium text-gray-900';
+            } else if (i === currentStep) {
+                indicator.className = 'w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-blue-500 text-white';
+                indicator.innerHTML = i;
+                stepText.className = 'mt-2 text-xs font-medium text-gray-900';
+            } else {
+                indicator.className = 'w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-gray-200 text-gray-500';
+                indicator.innerHTML = i;
+                stepText.className = 'mt-2 text-xs font-medium text-gray-400';
+            }
         }
-      }
 
-      // Reset flow with complete cleanup
-      function resetFlow() {
-        userData = {
-          goal: '', gender: '', height: 0, weight: 0, age: 0,
-          bmi: 0, bmiCategory: '', dietType: '', plan: '', planPrice: '',
-          username: '', email: '', password: ''
-        };
-        
-        // Clear all form inputs
-        const inputs = ['height', 'weight', 'age', 'username', 'email', 'password'];
-        inputs.forEach(id => {
-          const element = document.getElementById(id);
-          if (element) {
-            element.value = '';
-            element.style.borderColor = '#4b5563';
-          }
+        for (let i = 1; i <= 5; i++) {
+            const line = document.getElementById(`line-${i}`);
+            if (i < currentStep) {
+                line.className = 'flex-1 h-0.5 mx-4 bg-green-500 transition-all duration-300';
+            } else {
+                line.className = 'flex-1 h-0.5 mx-4 bg-gray-200 transition-all duration-300';
+            }
+        }
+    }
+
+    function showStep(step) {
+        for (let i = 1; i <= 6; i++) {
+            document.getElementById(`step-${i}`).className = 'step-hidden';
+        }
+        document.getElementById(`step-${step}`).className = 'step-visible';
+        updateStepIndicator();
+
+        // Initialize meal plan pricing when reaching step 6
+        if (step === 6) {
+            setTimeout(() => {
+                updateAllPricing();
+            }, 100);
+        }
+    }
+
+    function nextStep() {
+        if (currentStep < 6) {
+            currentStep++;
+            showStep(currentStep);
+        }
+    }
+
+    function prevStep() {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    }
+
+    function selectGoal(goal) {
+        formData.goal = goal;
+        document.querySelectorAll('.goal-option').forEach(option => {
+            option.className = 'goal-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105';
         });
-        
-        // Reset BMI display
-        document.getElementById('bmi-result').style.display = 'none';
-        document.getElementById('bmi-continue').disabled = true;
-        document.getElementById('complete-order').disabled = true;
-        
-        goToStep(1);
-      }
+        event.target.closest('.goal-option').className = 'goal-option p-6 rounded-xl border-2 border-blue-500 bg-blue-50 shadow-lg transition-all duration-300 hover:scale-105';
+        document.getElementById('goal-continue-btn').disabled = false;
+    }
 
-      // Initialize on page load
-      document.addEventListener('DOMContentLoaded', function() {
-        // Set initial state
-        updateProgressBar(1);
+    function selectGender(gender) {
+        formData.gender = gender;
+        document.querySelectorAll('.gender-option').forEach(option => {
+            option.className = 'gender-option p-8 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105';
+        });
+        event.target.closest('.gender-option').className = 'gender-option p-8 rounded-xl border-2 border-blue-500 bg-blue-50 shadow-lg transition-all duration-300 hover:scale-105';
+        document.getElementById('gender-continue-btn').disabled = false;
+    }
+
+    function calculateBMI() {
+        const height = document.getElementById('height').value;
+        const weight = document.getElementById('weight').value;
         
-        // Add input event listeners for real-time validation
-        document.getElementById('height').addEventListener('input', calculateBMI);
-        document.getElementById('weight').addEventListener('input', calculateBMI);
-        document.getElementById('age').addEventListener('input', validateBMIForm);
+        if (height && weight) {
+            const heightInMeters = parseFloat(height) / 100;
+            const weightInKg = parseFloat(weight);
+            const bmi = (weightInKg / (heightInMeters * heightInMeters)).toFixed(1);
+            
+            formData.height = height;
+            formData.weight = weight;
+            formData.bmi = parseFloat(bmi);
+            
+            document.getElementById('bmi-result').classList.remove('hidden');
+            document.getElementById('bmi-value').textContent = bmi;
+            
+            let category, colorClass, bgClass;
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                colorClass = 'text-blue-600';
+                bgClass = 'bg-blue-100';
+            } else if (bmi < 25) {
+                category = 'Normal weight';
+                colorClass = 'text-green-600';
+                bgClass = 'bg-green-100';
+            } else if (bmi < 30) {
+                category = 'Overweight';
+                colorClass = 'text-yellow-600';
+                bgClass = 'bg-yellow-100';
+            } else {
+                category = 'Obese';
+                colorClass = 'text-red-600';
+                bgClass = 'bg-red-100';
+            }
+            
+            const categoryElement = document.getElementById('bmi-category');
+            categoryElement.textContent = category;
+            categoryElement.className = `inline-flex px-4 py-2 rounded-full font-medium ${bgClass} ${colorClass}`;
+        }
         
-        document.getElementById('username').addEventListener('input', validateForm);
-        document.getElementById('email').addEventListener('input', validateForm);
-        document.getElementById('password').addEventListener('input', validateForm);
-      });
-    </script>
-            </div>
-           </section>
+        validateBMIForm();
+    }
+
+    function validateBMIForm() {
+        const height = document.getElementById('height').value;
+        const weight = document.getElementById('weight').value;
+        const age = document.getElementById('age').value;
+        
+        if (height && weight && age) {
+            formData.age = age;
+            document.getElementById('bmi-continue-btn').disabled = false;
+        } else {
+            document.getElementById('bmi-continue-btn').disabled = true;
+        }
+    }
+
+    function selectDietType(dietType) {
+        formData.dietType = dietType;
+        document.querySelectorAll('.diet-type-option').forEach(option => {
+            option.className = 'diet-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105';
+        });
+        event.target.closest('.diet-type-option').className = 'diet-type-option p-6 rounded-xl border-2 border-blue-500 bg-blue-50 shadow-lg transition-all duration-300 hover:scale-105';
+        document.getElementById('diet-type-continue-btn').disabled = false;
+    }
+
+    function selectMealType(mealType) {
+        formData.mealType = mealType;
+        document.querySelectorAll('.meal-type-option').forEach(option => {
+            option.className = 'meal-type-option p-6 rounded-xl border-2 border-gray-200 hover:border-gray-300 bg-white hover:shadow-md transition-all duration-300 hover:scale-105';
+        });
+        event.target.closest('.meal-type-option').className = 'meal-type-option p-6 rounded-xl border-2 border-blue-500 bg-blue-50 shadow-lg transition-all duration-300 hover:scale-105';
+        document.getElementById('meal-type-continue-btn').disabled = false;
+    }
+
+    // Meal plan functions
+    function getSelectedMealCount() {
+        return Object.values(selectedMeals).filter(Boolean).length;
+    }
+
+    function calculatePricing(planId, days = null) {
+        const selectedMealCount = getSelectedMealCount();
+        if (selectedMealCount === 0) return { pricePerMeal: 0, totalPrice: 0, totalMeals: 0 };
+
+        const planDays = days || basePrices[planId].days;
+        const pricePerMeal = basePrices[planId].base;
+        const totalMeals = selectedMealCount * planDays;
+        const totalPrice = pricePerMeal * totalMeals;
+
+        return { pricePerMeal, totalPrice, totalMeals };
+    }
+
+    function formatPrice(price) {
+        return new Intl.NumberFormat('en-IN').format(price);
+    }
+
+    function updateTotalSummary() {
+        const selectedMealCount = getSelectedMealCount();
+        const summaryElement = document.getElementById('totalSummary');
+        const amountElement = document.getElementById('summaryAmount');
+        const detailsElement = document.getElementById('summaryDetails');
+
+        if (selectedMealCount === 0) {
+            summaryElement.classList.add('hidden');
+            return;
+        } else {
+            summaryElement.classList.remove('hidden');
+        }
+
+        let pricing;
+        let planDisplayName = planNames[currentPlan];
+        let days;
+
+        if (currentPlan === 'custom') {
+            const customDays = parseInt(document.getElementById('customDays').value);
+            pricing = calculatePricing(currentPlan, customDays);
+            days = customDays;
+        } else {
+            pricing = calculatePricing(currentPlan);
+            days = basePrices[currentPlan].days;
+        }
+
+        amountElement.classList.add('amount-update');
+        amountElement.textContent = `₹ ${formatPrice(pricing.totalPrice)}`;
+
+        detailsElement.innerHTML = `
+            <span>${planDisplayName}</span>
+            <span>•</span>
+            <span>${days} days</span>
+            <span>•</span>
+            <span>${pricing.totalMeals} meals</span>
+            <span>•</span>
+            <span>${selectedMealCount} meal types</span>
+        `;
+
+        setTimeout(() => {
+            amountElement.classList.remove('amount-update');
+        }, 600);
+    }
+
+    function updateAllPricing() {
+        const selectedMealCount = getSelectedMealCount();
+        
+        const allCards = document.querySelectorAll('.pricing-card');
+        allCards.forEach(card => {
+            if (selectedMealCount === 0) {
+                card.classList.add('disabled');
+            } else {
+                card.classList.remove('disabled');
+            }
+        });
+
+        ['trial', 'common', 'bestdeal'].forEach(planId => {
+            const pricing = calculatePricing(planId);
+            
+            const priceElement = document.getElementById(`${planId}-price-per-meal`);
+            const totalElement = document.getElementById(`${planId}-total-price`);
+            const mealCountElement = document.getElementById(`${planId}-meal-count`);
+            
+            priceElement.classList.add('price-update');
+            totalElement.classList.add('price-update');
+            
+            priceElement.textContent = `₹${pricing.pricePerMeal}/meal`;
+            totalElement.textContent = `₹ ${formatPrice(pricing.totalPrice)}`;
+            mealCountElement.textContent = `${pricing.totalMeals} meals`;
+            
+            setTimeout(() => {
+                priceElement.classList.remove('price-update');
+                totalElement.classList.remove('price-update');
+            }, 500);
+        });
+
+        updateCustomPlan();
+        updateTotalSummary();
+    }
+
+    function toggleMealType(mealId) {
+        const checkbox = document.getElementById(mealId + '-checkbox');
+        selectedMeals[mealId] = !selectedMeals[mealId];
+        
+        if (selectedMeals[mealId]) {
+            checkbox.classList.add('checked');
+        } else {
+            checkbox.classList.remove('checked');
+        }
+        
+        updateAllPricing();
+    }
+
+    function selectPlan(planId) {
+        const cards = document.querySelectorAll('.pricing-card');
+        cards.forEach(card => card.classList.remove('selected'));
+        
+        document.getElementById(planId + '-card').classList.add('selected');
+        currentPlan = planId;
+        updateTotalSummary();
+    }
+
+    function updateCustomPlan() {
+        const selectedDays = parseInt(document.getElementById('customDays').value);
+        const pricing = calculatePricing('custom', selectedDays);
+        
+        const priceElement = document.getElementById('custom-price-per-meal');
+        const totalElement = document.getElementById('custom-total-price');
+        const mealCountElement = document.getElementById('custom-meal-count');
+        
+        priceElement.classList.add('price-update');
+        totalElement.classList.add('price-update');
+        
+        priceElement.textContent = `₹${pricing.pricePerMeal}/meal`;
+        totalElement.textContent = `₹ ${formatPrice(pricing.totalPrice)}`;
+        mealCountElement.textContent = `${pricing.totalMeals} meals`;
+        
+        setTimeout(() => {
+            priceElement.classList.remove('price-update');
+            totalElement.classList.remove('price-update');
+        }, 500);
+
+        if (currentPlan === 'custom') {
+            updateTotalSummary();
+        }
+    }
+
+    // Initialize the form
+    showStep(1);
+</script>
             
             <section>
               <title>Meal Plan Preference Section</title>
