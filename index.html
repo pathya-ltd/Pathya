@@ -12152,393 +12152,7 @@
               </div>
             </section> -->
 
-      
-
-            <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <style>
-        .step-hidden { display: none; }
-        .step-visible { display: block; }
-        .icon-target::before { content: "🎯"; }
-        .icon-heart::before { content: "❤️"; }
-        .icon-dumbbell::before { content: "💪"; }
-        .icon-activity::before { content: "📊"; }
-        .icon-user::before { content: "👤"; }
-        .icon-users::before { content: "👥"; }
-        .icon-calculator::before { content: "🧮"; }
-        .icon-zap::before { content: "⚡"; }
-        .icon-scale::before { content: "⚖️"; }
-        .icon-heart2::before { content: "💚"; }
-        .icon-leaf::before { content: "🌱"; }
-        .icon-leaf2::before { content: "🥬"; }
-        .icon-drumstick::before { content: "🍗"; }
-        .icon-egg::before { content: "🥚"; }
-        .icon-shield::before { content: "🛡️"; }
-        .icon-star::before { content: "⭐"; }
-        .icon-crown::before { content: "👑"; }
-        .icon-zap2::before { content: "⚡"; }
-        .icon-check::before { content: "✓"; }
-
-        /* Meal Plan Styles */
-        .meal-plan-container {
-            padding: 0;
-        }
-
-        .max-width-container {
-            max-width: 100%;
-            margin: 0;
-        }
-
-        .meal-plan-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .meal-plan-title {
-            font-size: 1.875rem;
-            font-weight: bold;
-            color: #1f2937;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 2rem;
-        }
-
-        /* Total Amount Summary */
-        .total-summary {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            color: #cfcc19;
-            text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .total-summary.hidden {
-            opacity: 0;
-            transform: translateY(-20px);
-            pointer-events: none;
-        }
-
-        .summary-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            opacity: 0.9;
-        }
-
-        .summary-amount {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            transition: all 0.3s;
-        }
-
-        .summary-details {
-            font-size: 0.875rem;
-            opacity: 0.8;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .amount-update {
-            animation: amountPulse 0.6s ease-out;
-        }
-
-        @keyframes amountPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        /* Meal Type Selection */
-        .meal-types {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .meal-type {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-        }
-
-        .meal-type:hover {
-            background-color: #e7bc0f;
-        }
-
-        .meal-type:hover .meal-label {
-            color: #111827;
-        }
-
-        .checkbox {
-            width: 28px;
-            height: 28px;
-            border: 2px solid #d1d5db;
-            border-radius: 4px;
-            margin-right: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .meal-type:hover .checkbox {
-            border-color: #f59e0b;
-            transform: scale(1.05);
-        }
-
-        .checkbox.checked {
-            background-color: #f59e0b;
-            border-color: #f59e0b;
-            transform: scale(1.1);
-        }
-
-        .checkmark {
-            width: 16px;
-            height: 16px;
-            color: white;
-            display: none;
-        }
-
-        .checkbox.checked .checkmark {
-            display: block;
-            animation: checkmarkPop 0.3s ease-out;
-        }
-
-        @keyframes checkmarkPop {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        .meal-label {
-            font-size: 1.125rem;
-            font-weight: 500;
-            color: #374151;
-            transition: color 0.2s;
-        }
-
-        /* Pricing Cards */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .pricing-card {
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            border: 1px solid #f3f4f6;
-            transition: all 0.3s;
-        }
-
-        .pricing-card:hover {
-            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
-            border-color: #fef3c7;
-            transform: translateY(-2px);
-        }
-
-        .pricing-card.selected {
-            border-color: #f59e0b;
-            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
-        }
-
-        .save-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background-color: #f59e0b;
-            color: black;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: bold;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .plan-header {
-            margin-bottom: 1.5rem;
-        }
-
-        .plan-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #1f2937;
-            margin-bottom: 0.25rem;
-        }
-
-        .plan-subtitle {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #1f2937;
-        }
-
-        .plan-duration {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #111827;
-            margin-top: 0.25rem;
-        }
-
-        .pricing-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .price-per-meal {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #111827;
-            transition: all 0.3s;
-        }
-
-        .total-price {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #6b7280;
-            margin-top: 0.25rem;
-            transition: all 0.3s;
-        }
-
-        .price-update {
-            animation: priceUpdate 0.5s ease-out;
-        }
-
-        @keyframes priceUpdate {
-            0% { transform: scale(1); color: #111827; }
-            50% { transform: scale(1.1); color: #f59e0b; }
-            100% { transform: scale(1); color: #111827; }
-        }
-
-        .card-footer {
-            border-top: 1px solid #cfcc19;
-            padding-top: 1rem;
-        }
-
-        .custom-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .custom-select {
-            position: relative;
-        }
-
-        .custom-dropdown {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            background: white;
-            color: #374151;
-            font-weight: 500;
-            cursor: pointer;
-            appearance: none;
-            transition: all 0.2s;
-        }
-
-        .custom-dropdown:focus {
-            outline: none;
-            border-color: #f59e0b;
-            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
-        }
-
-        .dropdown-arrow {
-            position: absolute;
-            right: 0.75rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            color: #9ca3af;
-            pointer-events: none;
-            transition: transform 0.2s;
-        }
-
-        .custom-select:hover .dropdown-arrow {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        .meal-count {
-            display: flex;
-            align-items: center;
-            color: #6b7280;
-            transition: all 0.3s;
-        }
-
-        .meal-icon {
-            width: 16px;
-            height: 12px;
-            background-color: #9ca3af;
-            border-radius: 2px;
-            margin-right: 0.5rem;
-            opacity: 0.6;
-        }
-
-        .disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .meal-types {
-                gap: 1rem;
-            }
-
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .summary-amount {
-                font-size: 2rem;
-            }
-
-            .summary-details {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .meal-types {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<!-- Diet Planner Section - Copy from here -->
-<section id="diet-planner" class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16">
+      <section id="diet-planner" class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16">
     <div class="container mx-auto px-4">
         <!-- Header -->
         <div class="text-center mb-12">
@@ -12549,7 +12163,7 @@
         </div>
 
         <!-- Step Indicator -->
-        <div id="step-indicator" class="w-full max-w-4xl mx-auto mb-8">
+        <div id="step-indicator" class="w-full max-w-5xl mx-auto mb-8">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <div class="flex flex-col items-center">
@@ -12590,6 +12204,13 @@
                     <div class="flex flex-col items-center">
                         <div id="step-6-indicator" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-gray-200 text-gray-500">6</div>
                         <span class="mt-2 text-xs font-medium text-gray-400">Diet Plans</span>
+                    </div>
+                    <div class="flex-1 h-0.5 mx-4 bg-gray-200" id="line-6"></div>
+                </div>
+                <div class="flex items-center">
+                    <div class="flex flex-col items-center">
+                        <div id="step-7-indicator" class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-300 bg-gray-200 text-gray-500">7</div>
+                        <span class="mt-2 text-xs font-medium text-gray-400">Registration</span>
                     </div>
                 </div>
             </div>
@@ -12986,11 +12607,111 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-center mt-8">
+                        <div class="flex justify-between mt-8">
                             <button onclick="prevStep()" class="px-8 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300">
                                 Back to Meal Selection
                             </button>
+                            <button id="plan-continue-btn" onclick="nextStep()" class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300">
+                                Continue to Registration
+                            </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7: Registration Form -->
+            <div id="step-7" class="step-hidden">
+                <div class="w-full max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Complete Your Registration</h2>
+                        <p class="text-lg text-gray-600">Fill in your details to finalize your meal plan</p>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-6 mb-8 border border-blue-200">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4 text-center">📋 Order Summary</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white rounded-lg p-4 shadow-sm">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-600">Selected Plan:</span>
+                                    <span class="font-semibold text-gray-900" id="final-plan-name">Most Common Plan</span>
+                                </div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-600">Duration:</span>
+                                    <span class="font-semibold text-gray-900" id="final-duration">14 days</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Total Meals:</span>
+                                    <span class="font-semibold text-gray-900" id="final-meals">56 meals</span>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 shadow-sm">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-600">Price per Meal:</span>
+                                    <span class="font-semibold text-gray-900" id="final-price-per-meal">₹119</span>
+                                </div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-gray-600">Meal Types:</span>
+                                    <span class="font-semibold text-gray-900" id="final-meal-types">4 types</span>
+                                </div>
+                                <div class="flex justify-between items-center text-lg">
+                                    <span class="text-gray-900 font-bold">Total Amount:</span>
+                                    <span class="font-bold text-blue-600 text-xl" id="final-total-amount">₹6,664</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Registration Form -->
+                    <div class="bg-white rounded-2xl shadow-lg p-8">
+                        <form id="registration-form" onsubmit="submitRegistration(event)">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="username" class="block text-sm font-medium text-gray-700 mb-2">
+                                        👤 Username
+                                    </label>
+                                    <input type="text" id="username" name="username" required 
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                           placeholder="Enter your username">
+                                </div>
+
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                        📧 Email Address
+                                    </label>
+                                    <input type="email" id="email" name="email" required 
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                           placeholder="Enter your email">
+                                </div>
+
+                                <div>
+                                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                                        🔒 Password
+                                    </label>
+                                    <input type="password" id="password" name="password" required 
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                           placeholder="Create a password">
+                                </div>
+
+                                <div>
+                                    <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-2">
+                                        🔒 Confirm Password
+                                    </label>
+                                    <input type="password" id="confirm-password" name="confirm-password" required 
+                                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                           placeholder="Confirm your password">
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <button type="button" onclick="prevStep()" class="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-all duration-300">
+                                    Back to Plans
+                                </button>
+                                <button type="submit" class="px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold rounded-lg hover:from-green-600 hover:to-green-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                                    🎉 Complete Order
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -13000,7 +12721,424 @@
             <p>Secure • Personalized • Science-backed</p>
         </div>
     </div>
+
+    <!-- Success Popup -->
+    <div id="success-popup" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full mx-4 transform scale-90 transition-all duration-300" id="popup-content">
+            <div class="text-center">
+                <!-- Success Animation -->
+                <div class="w-20 h-20 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce">
+                    <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">🎉 Hurray! Order Confirmed</h2>
+                
+                <p class="text-gray-600 mb-4 leading-relaxed">
+                    Your order is now being processed! We've forwarded all the details to your email regarding delivery addresses and order tracking.
+                </p>
+
+                <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                    <p class="text-sm text-gray-600 mb-2">Order ID:</p>
+                    <p class="text-lg font-bold text-blue-600" id="order-id">#NP-2024-001</p>
+                </div>
+
+                <button onclick="closeSuccessPopup()" class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transform hover:scale-105 transition-all duration-300">
+                    Awesome! 🚀
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
+
+
+
+            <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        .step-hidden { display: none; }
+        .step-visible { display: block; }
+        .icon-target::before { content: "🎯"; }
+        .icon-heart::before { content: "❤️"; }
+        .icon-dumbbell::before { content: "💪"; }
+        .icon-activity::before { content: "📊"; }
+        .icon-user::before { content: "👤"; }
+        .icon-users::before { content: "👥"; }
+        .icon-calculator::before { content: "🧮"; }
+        .icon-zap::before { content: "⚡"; }
+        .icon-scale::before { content: "⚖️"; }
+        .icon-heart2::before { content: "💚"; }
+        .icon-leaf::before { content: "🌱"; }
+        .icon-leaf2::before { content: "🥬"; }
+        .icon-drumstick::before { content: "🍗"; }
+        .icon-egg::before { content: "🥚"; }
+        .icon-shield::before { content: "🛡️"; }
+        .icon-star::before { content: "⭐"; }
+        .icon-crown::before { content: "👑"; }
+        .icon-zap2::before { content: "⚡"; }
+        .icon-check::before { content: "✓"; }
+
+        /* Meal Plan Styles */
+        .meal-plan-container {
+            padding: 0;
+        }
+
+        .max-width-container {
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .meal-plan-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .meal-plan-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 2rem;
+        }
+
+        /* Total Amount Summary */
+        .total-summary {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            color: #cfcc19;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .total-summary.hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+        }
+
+        .summary-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .summary-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .summary-details {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .amount-update {
+            animation: amountPulse 0.6s ease-out;
+        }
+
+        @keyframes amountPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Meal Type Selection */
+        .meal-types {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .meal-type {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .meal-type:hover {
+            background-color: #e7bc0f;
+        }
+
+        .meal-type:hover .meal-label {
+            color: #111827;
+        }
+
+        .checkbox {
+            width: 28px;
+            height: 28px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            margin-right: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .meal-type:hover .checkbox {
+            border-color: #f59e0b;
+            transform: scale(1.05);
+        }
+
+        .checkbox.checked {
+            background-color: #f59e0b;
+            border-color: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        .checkmark {
+            width: 16px;
+            height: 16px;
+            color: white;
+            display: none;
+        }
+
+        .checkbox.checked .checkmark {
+            display: block;
+            animation: checkmarkPop 0.3s ease-out;
+        }
+
+        @keyframes checkmarkPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .meal-label {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #374151;
+            transition: color 0.2s;
+        }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #f3f4f6;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1);
+            border-color: #fef3c7;
+            transform: translateY(-2px);
+        }
+
+        .pricing-card.selected {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+        }
+
+        .save-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: #f59e0b;
+            color: black;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .plan-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .plan-subtitle {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .plan-duration {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-top: 0.25rem;
+        }
+
+        .pricing-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .price-per-meal {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            transition: all 0.3s;
+        }
+
+        .total-price {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-top: 0.25rem;
+            transition: all 0.3s;
+        }
+
+        .price-update {
+            animation: priceUpdate 0.5s ease-out;
+        }
+
+        @keyframes priceUpdate {
+            0% { transform: scale(1); color: #111827; }
+            50% { transform: scale(1.1); color: #f59e0b; }
+            100% { transform: scale(1); color: #111827; }
+        }
+
+        .card-footer {
+            border-top: 1px solid #cfcc19;
+            padding-top: 1rem;
+        }
+
+        .custom-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .custom-select {
+            position: relative;
+        }
+
+        .custom-dropdown {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background: white;
+            color: #374151;
+            font-weight: 500;
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.2s;
+        }
+
+        .custom-dropdown:focus {
+            outline: none;
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            color: #9ca3af;
+            pointer-events: none;
+            transition: transform 0.2s;
+        }
+
+        .custom-select:hover .dropdown-arrow {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .meal-count {
+            display: flex;
+            align-items: center;
+            color: #6b7280;
+            transition: all 0.3s;
+        }
+
+        .meal-icon {
+            width: 16px;
+            height: 12px;
+            background-color: #9ca3af;
+            border-radius: 2px;
+            margin-right: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .meal-types {
+                gap: 1rem;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-amount {
+                font-size: 2rem;
+            }
+
+            .summary-details {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .meal-types {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Diet Planner Section - Copy from here -->
+
 <!-- End Diet Planner Section -->
 
 <script>
